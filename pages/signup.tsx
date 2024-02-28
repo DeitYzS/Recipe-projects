@@ -1,55 +1,211 @@
 import { useDefaultLayout } from '@/hooks/useDefaultLayout'
 import { NextPageWithLayout } from '@/utils/types'
 import React, { useState } from 'react';
+import Link from 'next/link';
 
 const SignUpForm = () => {
-  const [showPassword, setShowPassword] = useState(false);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+  
+    const [nameError, setNameError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  
+    const validateForm = () => {
+      let isValid = true;
+  
+      // Reset errors
+      setNameError('');
+      setEmailError('');
+      setPasswordError('');
+      setConfirmPasswordError('');
+  
+      // Validate name
+      if (!name.trim()) {
+        setNameError('Name is required');
+        isValid = false;
+      }
+  
+      // Validate email
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        setEmailError('Invalid email address');
+        isValid = false;
+      }
+  
+      // Validate password
+      if (password.length < 6) {
+        setPasswordError('Password must be at least 6 characters');
+        isValid = false;
+      }
+  
+      // Validate confirmPassword
+      if (confirmPassword !== password) {
+        setConfirmPasswordError('Passwords do not match');
+        isValid = false;
+      }
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+      if (confirmPassword == '') {
+        setConfirmPasswordError('Confirm password is required');
+        isValid = false;
+    }
+  
+      return isValid;
+    };
 
-  return (
-    <div className="bg-gray-200 w-full min-h-screen flex items-center justify-center">
-      <div className="w-full py-8">
-        <div className="flex items-center justify-center space-x-2">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            {/* ... SVG Path ... */}
-          </svg>
-          <h1 className="text-3xl font-bold text-blue-600 tracking-wider">Template</h1>
-        </div>
-        <div className="bg-white w-5/6 md:w-3/4 lg:w-2/3 xl:w-[500px] 2xl:w-[550px] mt-8 mx-auto px-16 py-8 rounded-lg shadow-2xl">
-          {/* ... Rest of the code ... */}
-          <form className="my-8 text-sm">
-            {/* ... Form fields ... */}
-            <div className="flex flex-col my-4">
-              <label htmlFor="password" className="text-gray-700">
-                Password
-              </label>
-              <div className="relative flex items-center mt-2">
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  name="password"
-                  id="password"
-                  className="flex-1 p-2 pr-10 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
-                  placeholder="Enter your password"
-                />
-                <button
-                  onClick={togglePasswordVisibility}
-                  type="button"
-                  className="absolute right-2 bg-transparent flex items-center justify-center text-gray-700"
-                >
-                  {/* ... SVGs for show and hide password ... */}
-                </button>
-              </div>
+    const correctForm = () => {
+        let isValid = true;
+    
+        // Reset errors
+        setNameError('');
+        setEmailError('');
+        setPasswordError('');
+        setConfirmPasswordError('');
+    
+        // Validate name
+        if (!name.trim()) {
+          setNameError('Corrcet ');
+          isValid = false;
+        }
+    
+        // Validate email
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          setEmailError('Corrcet');
+          isValid = false;
+        }
+    
+        // Validate password
+        if (password.length < 6) {
+          setPasswordError('Password must be at least 6 characters');
+          isValid = false;
+        }
+    
+        // Validate confirmPassword
+        if (confirmPassword !== password) {
+          setConfirmPasswordError('Passwords do not match');
+          isValid = false;
+        }
+  
+        if (confirmPassword == '') {
+          setConfirmPasswordError('Confirm password is required');
+          isValid = false;
+      }
+    
+        return isValid;
+      };
+  
+    const handleSignUp = (e:any) => {
+      e.preventDefault();
+      if (validateForm()) {
+        console.log('Form submitted successfully');
+      } else {
+        console.log('Form validation failed');
+      }
+    };
+  
+    return (
+      <div className="flex h-full mt-8">
+        <div className="container mx-auto">
+          <div className="max-w-md mx-auto my-10">
+            <div className="text-center">
+              <h1 className="my-3 text-3xl font-semibold text-gray-700">SIGN UP</h1>
+              <p className="text-gray-500 dark:text-gray-400">Sign in to access your account</p>
             </div>
-            {/* ... Rest of the form ... */}
-          </form>
-          {/* ... Social media sign-up buttons ... */}
+
+            <div className="m-7">
+              <form onSubmit={handleSignUp}>
+                
+                <div className="mb-2">
+                  <label htmlFor="name" className="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Your Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                  />
+                  {nameError && <p className="text-red-500 text-sm">{nameError}</p>}
+                </div>
+                
+                <div className="mb-2">
+                  <label htmlFor="name" className="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                    Email
+                  </label>
+                  <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    placeholder="Your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                  />
+                  {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
+                </div>
+
+                <div className="mb-2">
+                  <label htmlFor="name" className="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                    Password
+                  </label>
+                  <input
+                    type="text"
+                    name="password"
+                    id="password"
+                    placeholder="Your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                  />
+                  {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
+                </div>
+
+                <div className="mb-2">
+                  <label htmlFor="name" className="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                    Confirm Password
+                  </label>
+                  <input
+                    type="text"
+                    name="confirm password"
+                    id="confirm password"
+                    placeholder="Confirm password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                  />
+                  {confirmPasswordError && <p className="text-red-500 text-sm">{confirmPasswordError}</p>}
+                </div>
+             
+                <div className="mb-4">
+                  <button
+                    type="button"
+                    onClick={handleSignUp}
+                    className="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none"
+                  >
+                    SIGN UP
+                  </button>
+                </div>
+                <p className="text-sm text-center text-gray-400">
+                  Already have an account?
+                  <Link href="/signin" className="text-indigo-400 focus:outline-none focus:underline focus:text-indigo-500 dark:focus:border-indigo-800">
+                    {' '}
+                    Log in.
+                  </Link>
+                </p>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+}
 
+SignUpForm.getLayout = useDefaultLayout;
 export default SignUpForm;

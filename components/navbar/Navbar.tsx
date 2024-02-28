@@ -1,5 +1,8 @@
+'use client'
 import React from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
 
 class Navbar extends React.Component {
   render() {
@@ -9,36 +12,43 @@ class Navbar extends React.Component {
       background: "#f8f8f8",
       display: "flex",
       alignItems: "center",
-      padding: "0 24px",
+      padding: "0 30px",
       zIndex: "100",
+      top: "0", 
       justifyContent: "space-between",
     };
 
     return (
-      <nav style={style}>
-          <div className='text-blue-500 font-bold gap-12 flex'>
+      <nav style={style} className='sticky '>
+          <div className='text-blue-500 font-bold gap-12 flex text-xl'>
             <Link 
-              href="/logo"
+              href="/"
             >
-              <img src="#" alt="#" />
+              <img src="https://www.pngall.com/wp-content/uploads/8/Cooking-Recipe-PNG-Images.png" alt="recipe-logo"
+                style={{width: "45px", height: "45px"}}
+                className='cursor-pointer' 
+              />
             </Link>
     
             <Link
-              href="/home"
+              href="/"
+              className='mt-2'
             >
               Home
             </Link>
     
             <Link
-              href="/contactus"
+              href="/recipe"
+              className='mt-2'
             >
-              ContacUs
+              Recipe
             </Link>
     
             <Link
-              href="/about"
+              href="/category"
+              className='mt-2'
             >
-              Afdgfgfdg
+              Categories
             </Link>
           </div>
     
@@ -61,8 +71,5 @@ class Navbar extends React.Component {
     );
   }
 }
-
-
-
 
 export default Navbar
