@@ -1,9 +1,13 @@
 import React from 'react'
+import { NextPageWithLayout } from '@/utils/types'
+import { useDefaultLayout } from '@/hooks/useDefaultLayout'
 
-const index = () => {
+const Home : NextPageWithLayout = () => {
   return (
-    <div>index</div>
+    <div>Home</div>
   )
 }
 
-export default index
+Home.getLayout = useDefaultLayout
+
+export default Home

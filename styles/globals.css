@@ -4,15 +4,10 @@
 
 body {
   color: black;
-  background: whitesmoke;
-  width: auto;
-  height: 100vh;
+  background: #ffffffd5;
+  font-family: 'Roboto', sans-serif;
 }
 
-main {
-  width: auto;
-  height:925px;
-}
 
 @layer utilities {
   .text-balance {
