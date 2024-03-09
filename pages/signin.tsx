@@ -2,13 +2,32 @@ import React, { useState } from 'react';
 import { useDefaultLayout } from '@/hooks/useDefaultLayout';
 import { NextPageWithLayout } from '@/utils/types';
 import Link from 'next/link';
+import { AuthService } from '@/services/AuthService';
 
 const SignIn: NextPageWithLayout = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [token, setToken] = useState('' as string | null);
 
   const handleSignIn = () => {
-    // Handle sign-in logic here
+    AuthService.LoginUser(username, password).then((res:any) => {
+      setUsername(res.data.username);
+      setPassword(res.data.password);
+    });
+
+    if (username === 'admin' && password === 'admin') {
+      setToken('token');
+    }
+
+    if (token) {
+      localStorage.setItem('token', token);
+      window.location.href = '/';
+    } else {
+      alert('Invalid credentials');
+    }
+
+    setUsername('');
+    setPassword('');
   };
 
   return (

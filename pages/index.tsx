@@ -23,6 +23,19 @@ export default function Page() {
           <p className="text-lg">The best place to find your next job</p>
         </div>
       </div>
+
+      {/* <input
+        className="text-field pl-4 text-white"
+        :type="type"
+        :id="uuid"
+        :class="placeholderErrorClass"
+        :placeholder="placeholder"
+        :value="modelValue"
+        @input="$emit('update:modelValue', ($event.target as HTMLInputElement)?.value)"
+        v-bind="$attrs"
+        :aria-describedby="error ? `${uuid}-error` : undefined"
+        :aria-invalid="error ? true : false"
+      /> */}
     </>
   );
 }
