@@ -1,9 +1,24 @@
 import axios from 'axios'
 import type { AxiosInstance, AxiosResponse } from 'axios'
-import type { UserItem } from '@/utils/types'
-import apiClient from './AxiosClient'
+import type { RecipeItem} from '@/utils/types'
+import apiClient from "./AxiosClient"
 
-export default {
+
+const RecipeService = {
+    getRecipes(perPage: number, page: number): Promise<AxiosResponse<RecipeItem[]>> {
+        return apiClient.get<RecipeItem[]>('/recipes?_limit=' + perPage + '&_page=' + page)
+    },
+    getRecipeById(id: number): Promise<AxiosResponse<RecipeItem>> {
+        return apiClient.get<RecipeItem>('/recipes/' + id.toString())
+    },
+    getAllRecipes(): Promise<AxiosResponse<RecipeItem[]>> {
+        return apiClient.get<RecipeItem[]>('/recipes')
+    }
+}
+
+export default RecipeService
+
+// export default {
 //   getEvent(perPage: number, page: number): Promise<AxiosResponse<EventItem[]>> {
 //     return apiClient.get<EventItem[]>('/events?_limit=' + perPage + '&_page=' + page)
 //   },
@@ -20,5 +35,4 @@ export default {
 // LoginUser(username: string, password: string): Promise<AxiosResponse<UserItem>> {
 //     return apiAuth.post<UserItem>('/auth/login', {username, password}) 
 //     }
-
-}
+// }

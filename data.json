@@ -1,0 +1,58 @@
+[
+    {
+      "id": 0,
+      "Name": "Delicious Recipe",
+      "Images": ["https://images.pexels.com/photos/6157052/pexels-photo-6157052.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"],
+      "authorName": "John Crip",
+      "datePublished": "2024/09/05",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim sed nisi consequatur voluptatum earum. Labore esse nostrum molestias ipsam minima, deserunt animi sit expedita quos dolor ut voluptas quasi illum vitae? Quis ut error quibusdam facilis ipsam tempore expedita, consequatur dolore esse aliquam, officiis non minima, voluptate accusamus! Deleniti aliquam ipsa corporis provident, dolore assumenda modi sint sequi ipsum, esse suscipit quasi fuga repellat vero? Dolores amet, distinctio laudantium laboriosam iusto quos, nobis explicabo perferendis laborum odit ipsa impedit eos veniam voluptatum nisi commodi in modi quis sint repellat nostrum adipisci vel! Veniam deserunt corrupti blanditiis esse accusamus harum ullam illo eaque quos temporibus. Tenetur suscipit modi aperiam magnam! Fugiat perspiciatis sit delectus quasi molestiae aliquid suscipit enim, exercitationem repellendus ducimus debitis iure sunt sed ipsa sapiente dolores! Perferendis, alias explicabo, vero ipsa omnis enim eveniet nulla laudantium expedita adipisci nesciunt esse eos veniam quibusdam pariatur ipsam placeat illum ea cumque perspiciatis molestias quod cupiditate odio! Quod, velit sed. Illum recusandae beatae perferendis cum? Alias aliquid necessitatibus adipisci at harum quibusdam quisquam voluptates, ratione eaque vero tempore magni itaque temporibus dolorum nesciunt quae eveniet molestiae aperiam repudiandae? Iste quod, beatae cumque officiis neque culpa repellendus nemo repellat, sint, ipsam eum?",
+      "recipeIngredientParts": ["Cheese","Salt","Pepper","Tomato","Onion","Garlic","Basil","Olive Oil","Pasta"],
+      "recipeIngredientQuantities": ["200g","1tsp","1tsp","2","1","2 cloves","1tsp","2tbsp","200g"],
+      "recipeInstructions": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam reiciendis in voluptatibus. Quas nesciunt tenetur accusantium optio natus sint soluta suscipit! Expedita molestiae quo labore, dolor reprehenderit aliquam error maxime."
+    },
+    {
+      "id": 1,
+      "Name": "Spicy Chicken Curry",
+      "Images": ["https://images.pexels.com/photos/6157052/pexels-photo-6157052.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"],
+      "authorName": "Alice Smith",
+      "datePublished": "2024/10/15",
+      "description": "A mouthwatering chicken curry with a blend of aromatic spices, perfect for dinner parties or cozy nights in.",
+      "recipeIngredientParts": ["Chicken thighs","Onion","Garlic","Ginger","Tomatoes","Chili powder","Turmeric powder","Coriander powder","Garam masala","Salt","Cooking oil","Fresh cilantro leaves"],
+      "recipeIngredientQuantities": ["500g","1 large","4 cloves","1-inch piece","3 medium","2 tbsp","1 tsp","1 tsp","1 tsp","to taste","2 tbsp","for garnish"],
+      "recipeInstructions": "1. Heat oil in a pan and sauté chopped onion until golden brown.\n2. Add minced garlic, ginger, and green chilies. Cook until fragrant.\n3. Add chopped tomatoes and cook until they turn mushy.\n4. Add spices (chili powder, turmeric, coriander powder, garam masala, and salt) and cook until oil separates.\n5. Add chicken pieces and coat them with the spice mixture.\n6. Cook for 10-15 minutes until chicken is tender.\n7. Garnish with fresh cilantro leaves and serve hot with rice or naan."
+    },
+    {
+      "id": 2,
+      "Name": "Vegetable Stir Fry",
+      "Images": ["https://images.pexels.com/photos/6157052/pexels-photo-6157052.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"],
+      "authorName": "Emily Johnson",
+      "datePublished": "2024/11/20",
+      "description": "A healthy and colorful stir-fry dish packed with fresh vegetables and served with a flavorful sauce.",
+      "recipeIngredientParts": ["Broccoli","Carrots","Bell peppers","Mushrooms","Snap peas","Green onions","Garlic","Ginger","Soy sauce","Sesame oil","Rice vinegar","Honey","Cornstarch","Sesame seeds"],
+      "recipeIngredientQuantities": ["2 cups","2","2","1 cup","1 cup","4","3 cloves","1-inch piece","3 tbsp","1 tbsp","2 tbsp","1 tbsp","1 tbsp","for garnish"],
+      "recipeInstructions": "1. Heat sesame oil in a wok or large skillet over medium-high heat.\n2. Add minced garlic and ginger, and sauté for 1 minute.\n3. Add sliced vegetables (broccoli, carrots, bell peppers, mushrooms, snap peas) and stir-fry for 5-7 minutes until tender-crisp.\n4. In a small bowl, whisk together soy sauce, rice vinegar, honey, and cornstarch.\n5. Pour the sauce over the vegetables and toss to coat evenly. Cook for an additional 2-3 minutes until the sauce thickens.\n6. Garnish with chopped green onions and sesame seeds before serving. Enjoy with rice or noodles!"
+    },
+    {
+      "id": 3,
+      "Name": "Classic Chocolate Cake",
+      "Images": ["https://images.pexels.com/photos/6157052/pexels-photo-6157052.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"],
+      "authorName": "Michael Brown",
+      "datePublished": "2024/12/10",
+      "description": "Indulge in this rich and decadent chocolate cake, perfect for any celebration or special occasion.",
+      "recipeIngredientParts": ["All-purpose flour","Cocoa powder","Baking powder","Baking soda","Salt","Butter","Sugar","Eggs","Vanilla extract","Buttermilk","Hot water","Chocolate frosting"],
+      "recipeIngredientQuantities": ["2 cups","3/4 cup","1 1/2 tsp","1 1/2 tsp","1/2 tsp","1/2 cup","2 cups","3","2 tsp","1 cup","1 cup","as needed"],
+      "recipeInstructions": "1. Preheat oven to 350°F (175°C). Grease and flour two 9-inch round cake pans.\n2. In a large bowl, sift together flour, cocoa powder, baking powder, baking soda, and salt.\n3. In another bowl, cream together butter and sugar until light and fluffy. Beat in eggs, one at a time, then stir in vanilla extract.\n4. Gradually add dry ingredients to the wet ingredients, alternating with buttermilk. Mix until well combined.\n5. Stir in hot water until batter is smooth.\n6. Divide batter evenly between prepared cake pans and smooth the tops with a spatula.\n7. Bake in preheated oven for 25-30 minutes, or until a toothpick inserted into the center comes out clean.\n8. Allow cakes to cool in pans for 10 minutes, then transfer to wire racks to cool completely.\n9. Once cooled, frost the cakes with chocolate frosting. Slice and serve."
+    },
+    {
+      "id": 4,
+      "Name": "Fresh Fruit Salad",
+      "Images": ["https://images.pexels.com/photos/6157052/pexels-photo-6157052.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"],
+      "authorName": "Sophia Davis",
+      "datePublished": "2025/01/05",
+      "description": "A refreshing and colorful fruit salad made with a variety of seasonal fruits, perfect for a light and healthy snack or dessert.",
+      "recipeIngredientParts": ["Strawberries","Blueberries","Banana","Kiwi","Orange","Grapes","Honey","Lime juice","Fresh mint leaves"],
+      "recipeIngredientQuantities": ["1 cup","1 cup","2","2","1","1 cup","2 tbsp","1 tbsp","for garnish"],
+      "recipeInstructions": "1. Wash and prepare all fruits as needed. Hull and quarter strawberries, rinse blueberries, slice banana, peel and chop kiwi and orange, and halve grapes.\n2. In a large bowl, combine all prepared fruits.\n3. In a small bowl, whisk together honey and lime juice until well combined.\n4. Pour the honey-lime mixture over the fruit and gently toss to coat evenly.\n5. Garnish with fresh mint leaves before serving. Enjoy chilled!"
+    }
+  ]
+  

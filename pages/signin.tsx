@@ -6,19 +6,19 @@ import useToken from '@/hooks/useToken';
 import { log } from 'console';
 
 const SignIn: NextPageWithLayout = () => {
-  const { token, setToken } = useToken();  
-
+  const { token, setToken, username } = useToken();  
+  
   useEffect(() => {
     if (token) {
-      window.location.href = "/";
-      console.log('token', token);
-      
+      window.location.href = "/recipe";
     }
   }, [token]);
 
   if(!token) {
     return (
-      <Login setToken={setToken}/>
+      <>
+        <Login setToken={setToken}/>
+      </>
     );
   }
 }

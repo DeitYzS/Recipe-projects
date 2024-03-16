@@ -1,8 +1,49 @@
-import React from "react";
-import Layout from "../components/layout/DefaultLayout";
 
-const image = [""];
-export default function Page() {
+import { useDefaultLayout } from "@/hooks/useDefaultLayout";
+import { NextPageWithLayout} from "@/utils/types";
+import React, {useEffect, useState} from "react";
+import CardRecipe from "@/components/CardRecipe";
+import Link from "next/link";
+import data from "@/data.json"
+
+
+
+export const getStaticProps = async () => {
+  const recipes = data;
+
+  return {
+    props: { recipes },
+  };
+}
+
+const Page: NextPageWithLayout = ({ recipes }) => {
+  const [recipesState, setRecipesState] = useState(recipes); // Using state for recipes
+
+  const Cardcomponent = ({ recipes }: any) => {
+    return (
+      <>
+        {Array.isArray(recipes) && recipes.length > 0 ? (
+          recipes.map((recipe) => (
+            <Link href={`/recipe/${recipe.id}`} passHref key={recipe.id}>
+                <CardRecipe
+                  key={recipe.id}
+                  name={recipe.name}
+                  image={
+                    recipe.images && recipe.images.length > 0
+                      ? recipe.images[0]
+                      : ""
+                  }
+                  id={recipe.id}
+                />
+            </Link>
+          ))
+        ) : (
+          <div className="font-mono text-2xl flex justify-center">Error</div>
+        )}
+      </>
+    );
+  };
+
   return (
     <>
       <div className="w-full h-96 shadow-md bg-pink-gradient p-32">
@@ -17,33 +58,15 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="flex justify-center items-center">
-        <div className="flex flex-col justify-center items-center">
-          <h1 className="text-3xl font-bold">How it works</h1>
-          <p className="text-lg">The best place to find your next job</p>
+      <div className="w-full">
+        <h1 className="text-4xl font-bold text-start p-6">Recommend For You:</h1>
+        <div className="flex relative">
+          <Cardcomponent recipes={recipesState} />{" "}
         </div>
       </div>
-
-      {/* <input
-        className="text-field pl-4 text-white"
-        :type="type"
-        :id="uuid"
-        :class="placeholderErrorClass"
-        :placeholder="placeholder"
-        :value="modelValue"
-        @input="$emit('update:modelValue', ($event.target as HTMLInputElement)?.value)"
-        v-bind="$attrs"
-        :aria-describedby="error ? `${uuid}-error` : undefined"
-        :aria-invalid="error ? true : false"
-      /> */}
     </>
   );
-}
-
-Page.getLayout = function getLayout(page: any) {
-  return (
-    <Layout>
-      <div className="w-full h-full">{page}</div>
-    </Layout>
-  );
 };
+
+Page.getLayout = useDefaultLayout;
+export default Page;

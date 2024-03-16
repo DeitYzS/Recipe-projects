@@ -1,35 +1,51 @@
 import PropTypes from 'prop-types'
 import React, {useState, useEffect } from 'react'
 import Link from 'next/link'
+import axios from 'axios'
 
-async function loginUser(credentials: any) {
-    return fetch("http://localhost:5000/auth/login", {
-      method: 'POST',
+async function loginUser(credentials:any) {
+  try {
+    const response = await axios.post("http://localhost:5000/auth/login", credentials, {
       headers: {
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(credentials)
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to log in');
-        }
-        return response.json();
-      });
+      }
+    });
+    return response.data; 
+  } catch (error) {
+    console.error('Login error:', error);
+    throw error; 
   }
+}
 
-const Login = ({setToken}) => {
-    const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
 
-    const handleSubmit = async (e:any) => {
-        e.preventDefault();
-        const token = await loginUser({
-          username,
-          password
-        });
-        setToken(token);
+
+const Login = ({setToken}:any) => {
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (isLoading) {
+      console.log('Loading...');
     }
+  }, [isLoading]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+
+    try {
+      setIsLoading(true);
+      const token = await loginUser({
+        username,
+        password
+      });
+      setToken(token);
+    } catch (error) {
+      console.log('Login error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
     const onUsernameChange = (e: React.ChangeEvent<any>): void => {
         const username = e.target.value;
@@ -43,7 +59,8 @@ const Login = ({setToken}) => {
     }
 
     return (
-        <div className="flex h-full mt-32">
+      <> 
+         <div className="flex h-full mt-32">
           <div className="container mx-auto">
             <div className="max-w-md mx-auto my-10">
               <div className="text-center">
@@ -53,7 +70,7 @@ const Login = ({setToken}) => {
               <div className="m-7">
                 <form method='post'>
                 <div className="mb-6">
-                    <label htmlFor="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-400">Email Address</label>
+                    <label htmlFor="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-400">Username</label>
                     <input
                         type="username"
                         name="username"
@@ -97,6 +114,7 @@ const Login = ({setToken}) => {
             </div>
           </div>
         </div>
+      </>
       );
     }
 
