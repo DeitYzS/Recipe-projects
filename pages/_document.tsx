@@ -1,3 +1,4 @@
+
 import type { DocumentContext } from 'next/document';
 import Document from 'next/document';
 import { ServerStyleSheet } from 'styled-components';

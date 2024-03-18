@@ -24,16 +24,17 @@ const Page: NextPageWithLayout = ({ recipes }) => {
       <>
         {Array.isArray(recipes) && recipes.length > 0 ? (
           recipes.map((recipe) => (
-            <Link href={`/recipe/${recipe.id}`} passHref key={recipe.id}>
+            <Link href={`/recipe?=query${recipe.RecipeId}`} passHref key={recipe.RecipeId}>
                 <CardRecipe
-                  key={recipe.id}
+                  key={recipe.RecipeId}
                   name={recipe.name}
-                  image={
-                    recipe.images && recipe.images.length > 0
-                      ? recipe.images[0]
-                      : ""
-                  }
-                  id={recipe.id}
+                  images={recipe.images && recipe.images.length > 0
+                    ? recipe.images[0]
+                    : ""}
+                  id={recipe.RecipeId}
+                  category={recipe.RecipeCategory}
+                  recipe={recipes}
+                  rating={recipe.AggregatedRating}               
                 />
             </Link>
           ))

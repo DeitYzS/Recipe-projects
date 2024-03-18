@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import useToken from '@/hooks/useToken';
+import { Providers } from '@/pages/provider';
+
 interface Props {
   children: ReactNode;
 }
@@ -59,7 +61,9 @@ export default function DefaultLayout({ children }: Props) {
           </div>
         </div>
 
-        <div className='h-full'>{children}</div>
+        <Providers>
+          <div className='h-full'>{children}</div>
+        </Providers>
       </>
     ); 
 }
