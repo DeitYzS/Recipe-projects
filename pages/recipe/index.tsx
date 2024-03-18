@@ -44,7 +44,8 @@ const RecipePage: NextPageWithLayout = () => {
       return (
         <>
           {recipesState.map((recipe: any) => (
-            <Link href={`/recipe?rid=${recipe.RecipeId}`} passHref key={recipe.RecipeId}>
+            <>
+             {/* <Link href={`/recipe?rid=${recipe.RecipeId}`} passHref key={recipe.RecipeId}> */}
               <CardRecipe
                 name={recipe.Name}
                 images={recipe.Images}
@@ -53,7 +54,8 @@ const RecipePage: NextPageWithLayout = () => {
                 category={recipe.RecipeCategory}
                 recipe={recipe}
               />
-            </Link>
+            {/* </Link> */}
+            </>
           ))}
         </>
       );

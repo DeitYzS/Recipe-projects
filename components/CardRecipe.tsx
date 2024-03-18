@@ -2,15 +2,54 @@ import React from "react";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 import RecipeWithId from "@/components/RecipeModal";
 import {useState} from "react";
+import axios from "axios";
+import Link from "next/link";
+
+export const getStaticPaths = async () => {
+  try {
+    const response = await axios.get('http://localhost:5000/recipes'); 
+    let recipes = response.data;
+    
+    recipes = recipes.replace(/NaN/g, "null");
+    recipes = JSON.parse(recipes);
+    
+    const paths = recipes.map((recipe:any) => ({
+      params: { id: recipe.id.toString() }
+    }));
+
+    return {
+      paths,
+      fallback: false,
+    };
+  } catch (error:any) {
+    console.error("Error fetching data:", error.message);
+    return {
+      paths: [],
+      fallback: false,
+    };
+  }
+}
+
+export const getStaticProps = async ({ params }:any) => {
+  try {
+    const id = params.id;
+    const response = await axios.get(`http://localhost:5000/recipes/${id}`);
+    const recipe = response.data;
+
+    return {
+      props: { recipe: recipe }
+    };
+  } catch (error:any) {
+    console.error("Error fetching recipe:", error.message);
+    return {
+      props: { error: error.message } 
+    };
+  }
+};
+
 
 const CardRecipe: React.FC<{ name: string; images: string[]; id: number; rating:any; category:any; recipe:object}> = ({ name, images, id , rating, category, recipe}) => {
   const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
-  const [modalKey, setModalKey] = useState(0);
-
-  const handleOpenModal = () => {
-    setModalKey((prevKey) => prevKey + 1); // Increment modal key to force re-render
-    onOpen();
-  };
 
   const randomRgbColor = () => {
     const r = Math.floor(Math.random() * 256);
@@ -50,35 +89,12 @@ const CardRecipe: React.FC<{ name: string; images: string[]; id: number; rating:
             <span className="text-lg font-semibold uppercase tracking-wide break-all">
               {name}
             </span>
-                   
-            {/* <Button onPress={onOpen}> 
-              <span className="font-bold">Details</span>  
-            </Button>
-
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
-                <ModalContent>
-                  {(isClose) => (
-                      <>
-                        <ModalHeader>Recipe</ModalHeader>
-                        <ModalBody>
-                            <RecipeWithId recipe={recipe}/>
-                        </ModalBody>
-                        <ModalFooter>
-                        <Button color="danger" variant="light" onPress={onClose}>
-                            Close
-                          </Button>
-                          <Button color="primary" onPress={onClose}>
-                            Action
-                          </Button>
-                        </ModalFooter>
-                      </>  
-                  )}  
-                </ModalContent>         
-                </Modal>
-                return ( */}
+            
             <div>
-              <Button onPress={onOpen}>Details</Button>
+              <Button onPress={onOpen} className="font-bold">Details</Button>
               <Modal 
+                scrollBehavior="inside"
+                size="full"
                 backdrop="opaque" 
                 isOpen={isOpen} 
                 onOpenChange={onOpenChange}
@@ -91,7 +107,9 @@ const CardRecipe: React.FC<{ name: string; images: string[]; id: number; rating:
                     <>
                       <ModalHeader className="flex flex-col gap-1">Recipe Details</ModalHeader>
                       <ModalBody>
-                        <RecipeWithId recipe={recipe} />
+                        <Link href={`/recipe?rid=${id}`} passHref key={id}>
+                          <RecipeWithId recipe={recipe} />
+                        </Link>
                       </ModalBody>
                       <ModalFooter>
                         <Button color="danger" variant="light" onPress={onClose}>
@@ -111,8 +129,6 @@ const CardRecipe: React.FC<{ name: string; images: string[]; id: number; rating:
           <div style={{background: randomRgbColor()}} className=" object-cover rounded-md w-3/12 text-center font-bold text-white mb-2">
               {category}
           </div>
-
-         
 
           <div className="w-full right-0 mt-24">
             <div className="flex justify-end">
