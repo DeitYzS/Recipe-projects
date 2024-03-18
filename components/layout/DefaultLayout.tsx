@@ -32,8 +32,9 @@ export default function DefaultLayout({ children }: Props) {
         <div className="navbar">
           <div className="text-blue-500 font-bold gap-12 flex text-xl w-full">
             <Logo />
-            <Link href="/" className="mt-2">Home</Link>
-            <Link href="/recipe" className="mt-2">Recipe</Link>
+              <Link href="/" className="mt-2">Home</Link>
+              <Link href="/recipe" className="mt-2">Recipe</Link>
+              <Link href="/folder" className='mt-2'></Link>
           </div>
 
           <div className={`flex ${isLoggedIn ? "gap-4" : "gap-4 text-white font-bold"}`}>

@@ -12,6 +12,7 @@ const RecipePage: NextPageWithLayout = () => {
   const [query, setQuery] = useState<string>('');
   const [recipesState, setRecipesState] = useState<any[]>([]);
   const [searching, setSearching] = useState<boolean>(false);
+  const [spellCheck, setSpellCheck] = useState<string[]>([]);
  
 
   useEffect(() => {
@@ -24,6 +25,8 @@ const RecipePage: NextPageWithLayout = () => {
         
         const data = response.data;
         setRecipesState(data.results);
+        const suggestions = data.suggest.Name.map((item:any) => item.options.map((option:any) => option.text)).flat();
+        setSpellCheck(suggestions);
       } catch (error: any) {
         console.error("Error fetching data:", error.message);
         setRecipesState([]); 
@@ -60,11 +63,36 @@ const RecipePage: NextPageWithLayout = () => {
         </>
       );
     } else {
-      return <div>No recipes found.</div>;
+      return (
+        <>
+          <div className="flex flex-col items-center justify-center h-full">
+            <img
+              src="https://th.bing.com/th/id/OIP.f0CPvQY8Zj61fbapA50AsQAAAA?rs=1&pid=ImgDetMain" 
+              alt="No recipes found"
+              className="w-64 h-64 mb-8"
+              />
+            <div className="text-gray-700 text-lg font-semibold">No recipes found</div>
+            <div className="text-gray-500">Try refining your search terms or check back later.</div>
+          </div>
+
+          <div className="flex flex-col items-center justify-center h-full">
+            <img
+              src="https://th.bing.com/th/id/OIP.f0CPvQY8Zj61fbapA50AsQAAAA?rs=1&pid=ImgDetMain" 
+              alt="No recipes found"
+              className="w-64 h-64 mb-8"
+            />
+            <div className="text-gray-700 text-lg font-semibold">No recipes found</div>
+            <div className="text-gray-500">Try refining your search terms or check back later.</div>
+          </div>
+        
+        </>
+      )
     }
   };
 
   console.log(recipesState);
+  console.log(spellCheck);
+  
   
 
   return (
@@ -86,6 +114,18 @@ const RecipePage: NextPageWithLayout = () => {
             Search
           </button>
         </div>
+
+        <div className="w-full flex justify-center">
+          {spellCheck && spellCheck.length > 0 && (
+            <div className=" flex">
+              <span className="font-bold text-red-600">Did you mean :</span> 
+              {spellCheck.map((suggestion, index) => (
+                <span key={index} onClick={() => setQuery(suggestion)} className="text-blue-500 cursor-pointer">{index > 0 ? ', ' : ''}{suggestion}</span>
+                ))}
+            </div>
+          )}
+        </div>
+        
 
         <div className='className="grid grid-flow-rows grid grid-cols-2 mt-6 gap-2 w-full'>
           <Cardcomponent />
