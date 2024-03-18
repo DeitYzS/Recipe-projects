@@ -73,7 +73,7 @@ const RecipeWithId: React.FC <{recipe:any}>= ({ recipe }:any) => {
               />
           </div>
 
-        <div className='w-1/2'>
+        <div className='w-1/2 ml-6'>
           <div className='flex justify-between w-full mt-2'>
               <div className='mb-4 font-bold text-4xl w-1/2'>
                   {recipe && recipe?.Name}

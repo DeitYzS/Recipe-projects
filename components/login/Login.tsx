@@ -5,7 +5,7 @@ import axios from 'axios'
 
 async function loginUser(credentials:any) {
   try {
-    const response = await axios.post("http://localhost:5000/auth/login", credentials, {
+    const response = await axios.post("http://localhost:8080/login", credentials, {
       headers: {
         'Content-Type': 'application/json'
       }

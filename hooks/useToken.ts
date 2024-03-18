@@ -19,11 +19,33 @@ function useToken() {
     return null;
   };
 
+  const getID = () => {
+    if (typeof window !== 'undefined') {
+      const tokenString = localStorage.getItem('token');
+      const userToken = JSON.parse(tokenString);
+      return userToken?.user.id;
+    }
+    return null;
+  }
+
+  const getBookmarks = () => {
+    if (typeof window !== 'undefined') {
+      const tokenString = localStorage.getItem('token');
+      const userToken = JSON.parse(tokenString);
+      return userToken?.user.bookmarks;
+    }
+    return null;
+  }
+
   const [token, setToken] = useState(getToken());
   const [username, setUsername] = useState(getUsername());
+  const [userId, setUserId] = useState(getID());
+  const [bookMark, setBookmarks] = useState([]);
 
   const saveToken = (userToken) => {
     localStorage.setItem('token', JSON.stringify(userToken));
+    setBookmarks(userToken.bookmarks);
+    setUserId(userToken.id);
     setToken(userToken.token);
     setUsername(userToken.username);
   };
@@ -33,6 +55,8 @@ function useToken() {
     setToken(null);
     setUsername(null);
   };
+  
+ 
 
   return {
     setToken: saveToken,
@@ -40,6 +64,7 @@ function useToken() {
     isLoggedIn: !!token,
     logout,
     username,
+    userId
   };
 }
 

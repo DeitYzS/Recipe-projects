@@ -5,37 +5,30 @@ import CardRecipe from "@/components/CardRecipe";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import  useToken  from "@/hooks/useToken";
 import RecipeWithId from "@/components/RecipeModal";
+import { user } from "@nextui-org/react";
 
-const RecipePage: NextPageWithLayout = () => {
+const FolderPage: NextPageWithLayout = () => {
   const router = useRouter();
-  const [query, setQuery] = useState<string>('');
   const [recipesState, setRecipesState] = useState<any[]>([]);
-  const [searching, setSearching] = useState<boolean>(false);
-  const [spellCheck, setSpellCheck] = useState<string[]>([]);
+  const {userId} = useToken();
  
 
   useEffect(() => {
     const handleSearch = async () => {
       if (!query) return; // Do nothing if query is empty
-      
       try {
-        setSearching(true); // Start searching
-        const response = await axios.get(`http://localhost:5000/search_es?query=${query}`);
-        
+        const response = await axios.get(`http://localhost:8080/findmy/${userId}`);
         const data = response.data;
-        setRecipesState(data.results);
-        const suggestions = data.suggest.Name.map((item:any) => item.options.map((option:any) => option.text)).flat();
-        setSpellCheck(suggestions);
+        setRecipesState(data);
       } catch (error: any) {
         console.error("Error fetching data:", error.message);
         setRecipesState([]); 
-      } finally {
-        setSearching(false); 
       }
     };
     handleSearch();
-  }, [query]);
+  }, []);
 
 
   const Cardcomponent = ({recipes}:any) => {
@@ -87,30 +80,10 @@ const RecipePage: NextPageWithLayout = () => {
   };
 
   console.log(recipesState);
-  console.log(spellCheck);
-  
-  
 
   return (
     <>
       <div>
-        <h1 className="text-4xl font-bold text-center p-6">Recipe</h1>
-        <div className="flex justify-center">
-          <input
-            type="text"
-            className="w-1/2 border-2 border-gray-300 p-2 rounded-lg mr-4"
-            placeholder="Search for recipe"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full h-2/4"
-            onClick={() => setQuery(query)} 
-          >
-            Search
-          </button>
-        </div>
-
         {searching && (
           <div role="status" className="w-full h-full flex justify-center mt-10">
           <svg aria-hidden="true" className="inline w-52 h-52 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600 " 
@@ -123,18 +96,6 @@ const RecipePage: NextPageWithLayout = () => {
         )}
 
 
-        <div className="w-full flex justify-center">
-          {spellCheck && spellCheck.length > 0 && (
-            <div className=" flex">
-              <span className="font-bold text-red-600">Did you mean :</span> 
-              {spellCheck.map((suggestion, index) => (
-                <span key={index} onClick={() => setQuery(suggestion)} className="text-blue-500 cursor-pointer">{index > 0 ? ', ' : ''}{suggestion}</span>
-                ))}
-            </div>
-          )}
-        </div>
-        
-
         <div className='className="grid grid-flow-rows grid grid-cols-2 mt-6 gap-2 w-full'>
           <Cardcomponent />
         </div>
@@ -145,8 +106,8 @@ const RecipePage: NextPageWithLayout = () => {
   );
 };
 
-RecipePage.getLayout = useDefaultLayout;
-export default RecipePage;
+FolderPage.getLayout = useDefaultLayout;
+export default FolderPage;
 function fetchRecipes() {
   throw new Error("Function not implemented.");
 }

@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import Link from 'next/link';
 
-async function registerUser(credentials) {
+async function registerUser(credentials:any) {
   try {
-    const response = await axios.post("http://localhost:5000/auth/register", credentials, {
+    const response = await axios.post("http://localhost:8080/auth/register", credentials, {
       headers: {
         'Content-Type': 'application/json'
       }

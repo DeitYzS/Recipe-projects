@@ -34,7 +34,7 @@ export default function DefaultLayout({ children }: Props) {
             <Logo />
               <Link href="/" className="mt-2">Home</Link>
               <Link href="/recipe" className="mt-2">Recipe</Link>
-              <Link href="/folder" className='mt-2'></Link>
+              <Link href="/folder" className='mt-2'>Floder</Link>
           </div>
 
           <div className={`flex ${isLoggedIn ? "gap-4" : "gap-4 text-white font-bold"}`}>
@@ -52,10 +52,10 @@ export default function DefaultLayout({ children }: Props) {
             ) : (
               <>
                 <Link href="/signin">
-                  <div className="bg-blue-500 px-4 py-2 rounded-md">SIGN-IN</div>
+                  <div className="bg-blue-500 px-4 py-2 rounded-md">SIGNIN</div>
                 </Link>
                 <Link href="/signup">
-                  <div className="bg-blue-500 px-4 py-2 rounded-md">SIGN-UP</div>
+                  <div className="bg-blue-500 px-4 py-2 rounded-md">SIGNUP</div>
                 </Link>
               </>
             )}

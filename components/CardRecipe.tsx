@@ -4,6 +4,12 @@ import RecipeWithId from "@/components/RecipeModal";
 import {useState} from "react";
 import axios from "axios";
 import Link from "next/link";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
+import { height } from "@fortawesome/free-solid-svg-icons/fa0";
+import useToken from "@/hooks/useToken";
 
 export const getStaticPaths = async () => {
   try {
@@ -32,8 +38,10 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }:any) => {
   try {
+
     const id = params.id;
     const response = await axios.get(`http://localhost:5000/recipes/${id}`);
+
     const recipe = response.data;
 
     return {
@@ -50,6 +58,7 @@ export const getStaticProps = async ({ params }:any) => {
 
 const CardRecipe: React.FC<{ name: string; images: string[]; id: number; rating:any; category:any; recipe:object}> = ({ name, images, id , rating, category, recipe}) => {
   const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
+  const {userId} = useToken();
 
   const randomRgbColor = () => {
     const r = Math.floor(Math.random() * 256);
@@ -58,16 +67,25 @@ const CardRecipe: React.FC<{ name: string; images: string[]; id: number; rating:
     return `rgb(${r}, ${g}, ${b})`;
   };
 
+  const handleBookmarkClick = async (recipeId:any) => {
+    try {
+      const response = await axios.post(`http://localhost:8080/add/${userId}/${recipeId}`);
+      console.log(response.data); 
+    } catch (error) {
+      console.error('Error adding bookmark:', error);
+    }
+  };
+
   const renderStars = (rating: number) => {
     const fullStars = Math.floor(rating);
     const halfStar = rating - fullStars >= 0.5 ? 1 : 0;
 
     const stars = [];
     for (let i = 0; i < fullStars; i++) {
-      stars.push(<span key={i} className=" text-yellow-500">&#x2B50;</span>);
+      stars.push(<span key={i} className="text-yellow-500" style={{width:'25px', height:'25px'}}><FontAwesomeIcon icon={faStar} /></span>);
     }
     if (halfStar) {
-      stars.push(<span key="half" className=" text-yellow-500"></span>);
+      stars.push(<span key="half" className=" text-yellow-500" style={{width:'25px', height:'25px'}}><FontAwesomeIcon icon={faStarHalfStroke} /></span>);
     }
     return stars;
   };
@@ -130,9 +148,15 @@ const CardRecipe: React.FC<{ name: string; images: string[]; id: number; rating:
               {category}
           </div>
 
-          <div className="w-full right-0 mt-24">
-            <div className="flex justify-end">
+          <div className="w-full right-0 mt-24 flex flex-col-2">
+            <div className="flex justify-start w-1/2">
               {renderStars(rating)} ({rating})
+            </div>
+
+            <div className=" flex text-2xl w-1/2 hover:text-yellow-500 cursor-pointer pl-64 " 
+                onClick={() => handleBookmarkClick(id)}
+            >
+                <FontAwesomeIcon icon={faBookmark} style={{width:'30px', height:'30px'}}/>
             </div>
           </div>
 
